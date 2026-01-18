@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Himachal Travel Planner from Chandigarh</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0b1020; --card:#121936; --muted:#8aa0ff; --accent:#6ee7b7; --text:#eaf0ff }
+    html,body{ height:100% }
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% -10%, #1a235a 0%, #0b1020 40%, #070a16 100%);
+      color: var(--text);
+    }
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .ring-grad{
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 0 6px rgba(110,231,183,0.08);
+    }
+    .pill{
+      background: linear-gradient(90deg, rgba(106,130,255,.25), rgba(110,231,183,.25));
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .grid-bg{
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.06) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+
+  <header class="max-w-6xl mx-auto px-6 pt-10">
+    <div class="glass ring-grad rounded-2xl p-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight">Himachal Travel Planner</h1>
+        <p class="text-sm md:text-base text-indigo-200/80 mt-1">From Chandigarh • Shortest time • Budget • Weather</p>
+      </div>
+      <div class="pill rounded-full px-4 py-2 text-sm text-indigo-100 hidden md:block">
+        No API keys • Client-side only
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8 grid md:grid-cols-2 gap-6">
+    <!-- Controls -->
+    <section class="glass rounded-2xl p-6">
+      <h2 class="text-xl font-semibold mb-4">Plan your trip</h2>
+      <form id="planner-form" class="space-y-5">
+        <div>
+          <label class="block text-sm mb-2">Destination (Himachal)</label>
+          <select id="destination" class="w-full rounded-xl bg-[#0e1330] border border-white/10 px-4 py-3">
+            <option value="Manali">Manali</option>
+            <option value="Shimla">Shimla</option>
+            <option value="Dharamshala">Dharamshala</option>
+            <option value="Dalhousie">Dalhousie</option>
+            <option value="Kasauli">Kasauli</option>
+            <option value="Kullu">Kullu</option>
+            <option value="Kasol">Kasol</option>
+            <option value="Spiti">Spiti (Kaza)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm mb-2">People</label>
+            <input id="people" type="number" min="1" value="2" class="w-full rounded-xl bg-[#0e1330] border border-white/10 px-4 py-3" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Days</label>
+            <input id="days" type="number" min="1" value="3" class="w-full rounded-xl bg-[#0e1330] border border-white/10 px-4 py-3" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm mb-2">Vehicle mileage (km/l)</label>
+            <input id="mileage" type="number" min="5" value="18" class="w-full rounded-xl bg-[#0e1330] border border-white/10 px-4 py-3" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Fuel price (₹/l)</label>
+            <input id="fuelPrice" type="number" min="50" value="98" class="w-full rounded-xl bg-[#0e1330] border border-white/10 px-4 py-3" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm mb-2">Toll estimate (₹)</label>
+            <input id="tolls" type="number" min="0" value="400" class="w-full rounded-xl bg-[#0e1330] border border-white/10 px-4 py-3" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Daily stay budget per person (₹)</label>
+            <input id="stayPerDay" type="number" min="300" value="1200" class="w-full rounded-xl bg-[#0e1330] border border-white/10 px-4 py-3" />
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <input id="preferFastest" type="checkbox" checked class="accent-emerald-400" />
+          <label for="preferFastest" class="text-sm">
+            Prefer fastest route (avoids Shimla if slower)
+          </label>
+        </div>
+
+        <button class="mt-2 inline-flex items-center gap-2 bg-emerald-400 text-black px-5 py-3 rounded-xl font-semibold hover:bg-emerald-300 transition">
+          Plan Trip
+        </button>
+      </form>
+
+      <p class="text-xs text-indigo-200/70 mt-4">
+        Data sources: Open-Meteo for weather. Road times are estimates; verify live conditions.
+      </p>
+    </section>
+
+    <!-- Results -->
+    <section class="space-y-6">
+      <div class="glass rounded-2xl p-6">
+        <h3 class="text-lg font-semibold">Suggested Route</h3>
+        <div id="route" class="mt-4 text-indigo-100/90"></div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 grid md:grid-cols-3 gap-6">
+        <div>
+          <div class="text-sm text-indigo-200/70">Total Distance</div>
+          <div id="distance" class="text-2xl font-bold mt-1">-</div>
+        </div>
+        <div>
+          <div class="text-sm text-indigo-200/70">Total Time</div>
+          <div id="time" class="text-2xl font-bold mt-1">-</div>
+        </div>
+        <div>
+          <div class="text-sm text-indigo-200/70">Estimated Budget</div>
+          <div id="budget" class="text-2xl font-bold mt-1">-</div>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6">
+        <h3 class="text-lg font-semibold">Weather at Destination</h3>
+        <div id="weather" class="mt-3 grid sm:grid-cols-2 gap-4"></div>
+      </div>
+
+      <div class="glass rounded-2xl p-6">
+        <h3 class="text-lg font-semibold">Itinerary</h3>
+        <ol id="itinerary" class="mt-3 list-decimal list-inside space-y-2"></ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-6 pb-10 text-center text-sm text-indigo-200/70">
+    Built for planning scenic and fast trips across Himachal Pradesh from Chandigarh.
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
